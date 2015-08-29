@@ -2,7 +2,8 @@
     "name": "justinwang24/phprealtyspider",
     "description": "Realty Spider Package",
     "require-dev": {
-        "phpunit/phpunit": "^4.8"
+        "phpunit/phpunit": "^4.8",
+        "phpunit/php-invoker": "*"
     },
     "license": "MIT",
     "authors": [
