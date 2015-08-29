@@ -1,0 +1,26 @@
+{
+    "name": "justinwang24/phprealtyspider",
+    "description": "Realty Spider Package",
+    "require-dev": {
+        "phpunit/phpunit": "^4.8"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "wangyue",
+            "email": "18510209803@163.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+        "sunra/php-simple-html-dom-parser": "^1.5",
+        "dflydev/markdown": "^1.0",
+        "erusev/parsedown": "^1.5",
+        "michelf/php-markdown": "^1.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "justinwang24\\phprealtyspider\\": "src"
+        }
+    }
+}
