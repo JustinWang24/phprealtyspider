@@ -39,7 +39,17 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 	 * @param string $tag
 	 */
 	public function parsePropertyId(){
-		return 'OK';
+		if (!is_null($this->propertyUrl)) {
+			$arr = explode('-', $this->propertyUrl);
+			/*
+				1: url中必须至少保证有一个 - 符号,所有 $arr 的元素数必须大于1才行
+				2: Id 必须全部由数字组成才对
+			*/
+			if (count($arr)>1 && ctype_digit($arr[count($arr)-1])) {
+				return $arr[count($arr)-1];
+			}
+		}
+		return null;
 	}
 	
 	/**

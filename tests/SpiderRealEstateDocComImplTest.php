@@ -7,12 +7,15 @@ class SpiderRealEstateDotComImplTest extends PHPUnit_Framework_TestCase{
 		创建基境 Fixture
 	*/
 	protected $spider;
+	protected $url;
 
 	/*
 		测试环境的初始化
 	*/
 	protected function setUp(){
 		$this->spider = new SpiderRealEstateDotComImpl;
+		$this->url = 'http://www.realestate.com.au/property-house-vic-ferntree+gully-120340141';
+		$this->spider->init($this->url);
 	}
 
 	/*
@@ -23,11 +26,9 @@ class SpiderRealEstateDotComImplTest extends PHPUnit_Framework_TestCase{
 	}
 
 	public function testInit()
-	{
-	    $expectation = 'http://www.realestage.com.au';
-	    $this->spider->init();
+	{	    
 	    $this->assertEquals(
-	    	$expectation,
+	    	$this->url,
 	    	$this->spider->propertyUrl
 	    );
 	    $this->assertNotNull(
@@ -46,9 +47,22 @@ class SpiderRealEstateDotComImplTest extends PHPUnit_Framework_TestCase{
 
 	public function testParsePropertyId()
 	{
-	    $expectation = 'OK';
+	    $expectation = '120340141';
 	    $this->assertEquals(
 	    	$expectation,
+	    	$this->spider->parsePropertyId()
+	    );
+	}
+
+	public function testParsePropertyIdFailed()
+	{
+	    $this->spider->propertyUrl = 'sdfdas';
+	    $this->assertNull(
+	    	$this->spider->parsePropertyId()
+	    );
+	    //检查是否 id 解析后不是全数字也返回 null
+	    $this->spider->propertyUrl = 'sdfdas-a1';
+	    $this->assertNull(
 	    	$this->spider->parsePropertyId()
 	    );
 	}
