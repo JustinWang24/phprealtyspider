@@ -13,6 +13,12 @@ interface PropertySpider{
 	 * 解析房产的信息并返回产品对象或者数组
 	 */
 	public function parseProperty();
+
+	/**
+	 * 取得房产在对方网站中的 ID
+	 * @param string $tag
+	 */
+	public function parsePropertyId();
 	
 	/**
 	 * 取得房产的地址

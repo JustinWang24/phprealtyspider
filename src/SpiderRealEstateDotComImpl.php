@@ -33,6 +33,14 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 	public function parseProperty(){
 		return 'OK';
 	}
+
+	/**
+	 * 取得房产在对方网站中的 ID
+	 * @param string $tag
+	 */
+	public function parsePropertyId(){
+		return 'OK';
+	}
 	
 	/**
 	 * 取得房产的地址

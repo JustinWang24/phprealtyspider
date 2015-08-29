@@ -44,6 +44,15 @@ class SpiderRealEstateDotComImplTest extends PHPUnit_Framework_TestCase{
 	    );
 	}
 
+	public function testParsePropertyId()
+	{
+	    $expectation = 'OK';
+	    $this->assertEquals(
+	    	$expectation,
+	    	$this->spider->parsePropertyId()
+	    );
+	}
+
 	public function testParsePropertyAddress()
 	{
 	    $expectation = 'OK';
