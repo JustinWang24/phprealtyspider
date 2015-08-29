@@ -22,9 +22,9 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 	/*
 		设置需要爬行的 url 地址
 	*/
-	public function init($propertyUrl="http://www.realestage.com.au",$dom=null){
-		$this->dom = new HtmlDomParser;
+	public function init($propertyUrl=null,$dom=null){
 		$this->propertyUrl = $propertyUrl;
+		$this->dom = HtmlDomParser::file_get_html( $propertyUrl );
 	}
 
 	/**
@@ -57,7 +57,8 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 	 * @param string $tag
 	 */
 	public function parsePropertyAddress(){
-		return 'OK';
+		$address = $this->dom->find('#listing_header h1 span',0)->innertext;
+		return trim($address);
 	}
 	
 	/**
@@ -65,7 +66,8 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 	 * @param string $tag
 	 */
 	public function parsePropertySuburb(){
-		return 'OK';
+		$suburb = $this->dom->find('#listing_header h1 span',1)->innertext;
+		return trim($suburb);
 	}
 
 	/**
@@ -73,7 +75,8 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 	 * @param string $tag
 	 */
 	public function parsePropertyState(){
-		return 'OK';
+		$state = $this->dom->find('#listing_header h1 span',2)->innertext;
+		return strtoupper( trim($state) );
 	}
 
 	/**
@@ -81,7 +84,7 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 	 * @param string $tag
 	 */
 	public function parsePropertyCountry(){
-		return 'OK';
+		return 'AU';
 	}
 
 	/**
@@ -89,7 +92,8 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 	 * @param string $tag
 	 */
 	public function parsePropertyPostcode(){
-		return 'OK';
+		$postcode = $this->dom->find('#listing_header h1 span',3)->innertext;
+		return trim($postcode);
 	}
 
 	/**

@@ -69,7 +69,7 @@ class SpiderRealEstateDotComImplTest extends PHPUnit_Framework_TestCase{
 
 	public function testParsePropertyAddress()
 	{
-	    $expectation = 'OK';
+	    $expectation = '18 Craig Avenue';
 	    $this->assertEquals(
 	    	$expectation,
 	    	$this->spider->parsePropertyAddress()
@@ -78,7 +78,7 @@ class SpiderRealEstateDotComImplTest extends PHPUnit_Framework_TestCase{
 
 	public function testParsePropertySuburb()
 	{
-	    $expectation = 'OK';
+	    $expectation = 'Ferntree Gully';
 	    $this->assertEquals(
 	    	$expectation,
 	    	$this->spider->parsePropertySuburb()
@@ -87,7 +87,7 @@ class SpiderRealEstateDotComImplTest extends PHPUnit_Framework_TestCase{
 
 	public function testParsePropertyState()
 	{
-	    $expectation = 'OK';
+	    $expectation = 'VIC';
 	    $this->assertEquals(
 	    	$expectation,
 	    	$this->spider->parsePropertyState()
@@ -96,10 +96,19 @@ class SpiderRealEstateDotComImplTest extends PHPUnit_Framework_TestCase{
 
 	public function testParsePropertyCountry()
 	{
-	    $expectation = 'OK';
+	    $expectation = 'AU';
 	    $this->assertEquals(
 	    	$expectation,
 	    	$this->spider->parsePropertyCountry()
+	    );
+	}
+
+	public function testParsePropertyPostcode()
+	{
+	    $expectation = '3156';
+	    $this->assertEquals(
+	    	$expectation,
+	    	$this->spider->parsePropertyPostcode()
 	    );
 	}
 }
