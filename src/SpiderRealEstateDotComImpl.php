@@ -97,11 +97,21 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 	}
 
 	/**
+	 * 取得房产的宣传的短语
+	 * @param string $tag
+	 */
+	public function parsePropertySlogon(){
+		$slogon = $this->dom->find('#description .title',0)->innertext;
+		return $slogon;
+	}
+
+	/**
 	 * 取得房产的描述信息
 	 * @param string $tag
 	 */
 	public function parsePropertyDescription(){
-		return 'OK';
+		$desc = $this->dom->find('#description .body',0)->innertext;
+		return $desc;
 	}
 
 	/**
@@ -165,14 +175,6 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 	 * @param string $tag
 	 */
 	public function parsePropertyStatus(){
-		return 'OK';
-	}
-	
-	/**
-	 * 取得房产的宣传的短语
-	 * @param string $tag
-	 */
-	public function parsePropertySlogon(){
 		return 'OK';
 	}
 

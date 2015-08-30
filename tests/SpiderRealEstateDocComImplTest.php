@@ -111,4 +111,22 @@ class SpiderRealEstateDotComImplTest extends PHPUnit_Framework_TestCase{
 	    	$this->spider->parsePropertyPostcode()
 	    );
 	}
+
+	public function testParsePropertySlogon()
+	{
+	    $expectation = 'Double The Appeal - An Investors Dream!';
+	    $this->assertEquals(
+	    	$expectation,
+	    	$this->spider->parsePropertySlogon()
+	    );
+	}
+
+	public function testParsePropertyDescription()
+	{
+	    $expectation = 'Offering exceptional value for the quick-acting investor (current return $2,513 per calendar month), this \'two-for-one\' property enjoys double the rental income with two exceptionally well-maintained dwellings each offering secure tenancies already in place eliminating any immediate, non-income periods between tenants.<br><br>Set upon a substantial allotment of 1035sqm (approx.), the primary residence features a naturally-light split-level layout comprising a spacious living area featuring polished floorboards, an elevated family zone plus a well-appointed kitchen and three bedrooms serviced by the spotless full ensuite and modern family bathroom.<br><br>Placed to the rear, the self-contained bungalow (separately metered for gas, electricity and water) is also appealing with an open plan lounge and chic kitchenette, polished floorboards, a modern bathroom and huge, robed bedroom.<br><br>Perfectly located close to a choice of shopping precincts (Mountain Gate, Boronia and Westfield Knox), bus transport, quality schools, parklands and walking trails, and, with a high walkability aspect to Ferntree Gully Village with cafes and rail station, as well as easy proximity to freeways;<span data-description=" secure dual rental opportunities such as this one are a rare, and rewarding, investment find. Call to register your interest today!">...</span><a href="#" rel="revealDescription" class="more interesting hidden">show more</a>';
+	    $this->assertEquals(
+	    	$expectation,
+	    	$this->spider->parsePropertyDescription()
+	    );
+	}
 }
