@@ -99,6 +99,12 @@ interface PropertySpider{
 	public function parsePropertyType();
 
 	/**
+	 * 取得房产的土地面积
+	 * @param string $tag
+	 */
+	public function parsePropertyLandSize();
+
+	/**
 	 * 取得房产的状态,比如 Under Contract 等
 	 * @param string $tag
 	 */
@@ -141,8 +147,14 @@ interface PropertySpider{
 	public function parsePropertyAgencyName();
 
 	/**
-	 * 取得房产的中介公司销售人员名称,联系方式,头像,邮件等信息
+	 * 取得房产的中介公司销售人员名称
 	 * @return string
 	 */
-	public function parsePropertyAgentDetails();
+	public function parsePropertyAgentName();
+
+	/**
+	 * 取得房产的中介公司销售人员联系方式
+	 * @return string
+	 */
+	public function parsePropertyAgentPhone();
 }

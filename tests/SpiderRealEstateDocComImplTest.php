@@ -38,8 +38,8 @@ class SpiderRealEstateDotComImplTest extends PHPUnit_Framework_TestCase{
 
 	public function testParseProperty()
 	{
-	    $expectation = 'OK';
-	    $this->assertEquals(
+	    $expectation = 'url';
+	    $this->assertArrayHasKey(
 	    	$expectation,
 	    	$this->spider->parseProperty()
 	    );
@@ -127,6 +127,161 @@ class SpiderRealEstateDotComImplTest extends PHPUnit_Framework_TestCase{
 	    $this->assertEquals(
 	    	$expectation,
 	    	$this->spider->parsePropertyDescription()
+	    );
+	}
+
+	public function testParsePropertyMinPrice()
+	{
+	    $expectation = '$540,000 Plus';
+	    $this->assertEquals(
+	    	$expectation,
+	    	$this->spider->parsePropertyMinPrice()
+	    );
+	}
+
+	public function testParsePropertyMaxPrice()
+	{
+	    $expectation = '$540,000 Plus';
+	    $this->assertEquals(
+	    	$expectation,
+	    	$this->spider->parsePropertyMaxPrice()
+	    );
+	}
+
+	public function testParsePropertyPriceText()
+	{
+	    $expectation = '$540,000 Plus';
+	    $this->assertEquals(
+	    	$expectation,
+	    	$this->spider->parsePropertyPriceText()
+	    );
+	}
+
+	public function testParsePropertyBedroomNumber()
+	{
+	    $expectation = '4';
+	    $this->assertEquals(
+	    	$expectation,
+	    	$this->spider->parsePropertyBedroomNumber()
+	    );
+	}
+
+	public function testParsePropertyBathroomNumber()
+	{
+	    $expectation = '3';
+	    $this->assertEquals(
+	    	$expectation,
+	    	$this->spider->parsePropertyBathroomNumber()
+	    );
+	}
+
+	public function testParsePropertyGarageNumber()
+	{
+	    $expectation = '$540,000 Plus';
+	    $this->assertNull(
+	    	$this->spider->parsePropertyGarageNumber()
+	    );
+	}
+
+	public function testParsePropertyType()
+	{
+	    $expectation = 'House';
+	    $this->assertEquals(
+	    	$expectation,
+	    	$this->spider->parsePropertyType()
+	    );
+	}
+
+	public function testParsePropertyLandSize()
+	{
+	    $expectation = '1035 m² (approx)';
+	    $this->assertEquals(
+	    	$expectation,
+	    	$this->spider->parsePropertyLandSize()
+	    );
+	}
+
+	public function testParsePropertyStatus()
+	{
+	    $expectation = 'Under Contract';
+	    $this->assertEquals(
+	    	$expectation,
+	    	$this->spider->parsePropertyStatus()
+	    );
+	}
+
+	public function testParsePropertyOpenForInspectionSchedule()
+	{
+	    $expectation = 'No inspections are currently scheduled.';
+	    $this->assertEquals(
+	    	$expectation,
+	    	$this->spider->parsePropertyOpenForInspectionSchedule()
+	    );
+	}
+
+	public function testParsePropertySalesMethod()
+	{
+	    $expectation = 'OK';
+	    $this->assertEquals(
+	    	$expectation,
+	    	$this->spider->parsePropertySalesMethod()
+	    );
+	}
+
+	// public function testParsePropertyImages()
+	// {
+	//     $expectation = array(
+	//     	"http://i1.au.reastatic.net/150x112/f142f555fac1d1012324835fd47cd75ee6f4715677b3003669a62a9c86af6848/image2.jpg"
+	// 		,"http://i2.au.reastatic.net/150x112/6bfeff38e3d6bdb02c52e77554df1f83c5e4c3e74e9f3645656823f1e844e6f3/image3.jpg"
+	// 		,"http://i3.au.reastatic.net/150x112/8c00c7ff7b8d5edfe5739287a57423d6bcdb624dab8ae0ac8d0067d197176d46/image4.jpg"
+	// 		,"http://i4.au.reastatic.net/150x112/95c67929ddbd354e92e48de3e8361a290b138f8dc2b563f2071d376ecbab70f4/image5.jpg"
+	// 		,"http://i1.au.reastatic.net/150x112/fd0b860e5f725d0a13bbd42d5488e622a60f14953398f01b6dff98d21df7e96b/image6.jpg"
+	// 		,"http://i2.au.reastatic.net/150x112/957b5ca094976f559855ef240d787b638b0ffead190824d7e84d72f6d96385e5/image7.jpg"
+	// 		,"http://i3.au.reastatic.net/150x112/194035868078d4896d667914c3d0ba0e6dbb27dc410619c767529d19c20b984c/image8.jpg"
+	// 		,"http://i4.au.reastatic.net/150x112/5ff7a5f09b2fa96e0e97711c6faeeec8dd08755d1d6916b90ec81fb381a9e638/image9.jpg"
+	// 		,"http://i1.au.reastatic.net/150x112/20e3b49075c57c6692f13d9e63d0a33c5c03b06101db69dd2b2132b9d3d07cb7/image10.jpg"
+	// 		,"http://i2.au.reastatic.net/150x112/a624781da7cde069f5417a34379064e7386030499e66f4502ec60d2890345667/image11.jpg"
+	// 		,"http://i3.au.reastatic.net/150x112/a90124bdb9d380f0164c9ef250ad9676ce367e58ff5a617158012243022fa681/floorplan1.jpg"
+	//     );
+	//     $this->assertEquals(
+	//     	$expectation,
+	//     	$this->spider->parsePropertyImages()
+	//     );
+	// }
+
+	// public function testParsePropertyVideo()
+	// {
+	//     $expectation = 'Under Contract';
+	//     $this->assertEquals(
+	//     	$expectation,
+	//     	$this->spider->parsePropertyVideo()
+	//     );
+	// }
+
+	public function testParsePropertyAgencyName()
+	{
+	    $expectation = 'Barry Plant - Boronia';
+	    $this->assertEquals(
+	    	$expectation,
+	    	$this->spider->parsePropertyAgencyName()
+	    );
+	}
+
+	public function testParsePropertyAgentName()
+	{
+	    $expectation = 'Alan Garbuio';
+	    $this->assertEquals(
+	    	$expectation,
+	    	$this->spider->parsePropertyAgentName()
+	    );
+	}
+
+	public function testParsePropertyAgentPhone()
+	{
+	    $expectation = '0425 791 341';
+	    $this->assertEquals(
+	    	$expectation,
+	    	$this->spider->parsePropertyAgentPhone()
 	    );
 	}
 }

@@ -31,7 +31,28 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 	 * 解析房产的信息并返回产品对象或者数组
 	 */
 	public function parseProperty(){
-		return 'OK';
+		$property = array(
+			'property_id'=>$this->parsePropertyId(),
+			'address'=>$this->parsePropertyAddress(),
+			'suburb'=>$this->parsePropertySuburb(),
+			'state'=>$this->parsePropertyState(),
+			'country'=>$this->parsePropertyCountry(),
+			'postcode'=>$this->parsePropertyPostcode(),
+			'slogon'=>$this->parsePropertySlogon(),
+			'description'=>$this->parsePropertyDescription(),
+			'price_text'=>$this->parsePropertyPriceText(),
+			'bed'=>$this->parsePropertyBedroomNumber(),
+			'bath'=>$this->parsePropertyBathroomNumber(),
+			'garage'=>$this->parsePropertyGarageNumber(),
+			'type'=>$this->parsePropertyType(),
+			'landsize'=>$this->parsePropertyLandSize(),
+			'images'=>$this->parsePropertyImages(),
+			'agency_name'=>$this->parsePropertyAgencyName(),
+			'agent_name'=>$this->parsePropertyAgentName(),
+			'agent_phone'=>$this->parsePropertyAgentPhone(),
+			'url'=>$this->propertyUrl
+		);
+		return $property;
 	}
 
 	/**
@@ -119,7 +140,8 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 	 * @param string $tag
 	 */
 	public function parsePropertyMinPrice(){
-		return 'OK';
+		$price = $this->dom->find('.priceText',0)->innertext;
+		return $price;
 	}
 
 	/**
@@ -127,7 +149,8 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 	 * @param string $tag
 	 */
 	public function parsePropertyMaxPrice(){
-		return 'OK';
+		$price = $this->dom->find('.priceText',0)->innertext;
+		return $price;
 	}
 
 	/**
@@ -135,7 +158,8 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 	 * @param string $tag
 	 */
 	public function parsePropertyPriceText(){
-		return 'OK';
+		$price = $this->dom->find('.priceText',0)->innertext;
+		return $price;
 	}
 
 	/**
@@ -143,7 +167,7 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 	 * @param string $tag
 	 */
 	public function parsePropertyBedroomNumber(){
-		return 'OK';
+		return $this->_getPropertyOutdoorFeature('Bedrooms');
 	}
 
 	/**
@@ -151,7 +175,7 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 	 * @param string $tag
 	 */
 	public function parsePropertyBathroomNumber(){
-		return 'OK';
+		return $this->_getPropertyOutdoorFeature('Bathrooms');
 	}
 
 	/**
@@ -159,7 +183,7 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 	 * @param string $tag
 	 */
 	public function parsePropertyGarageNumber(){
-		return 'OK';
+		return $this->_getPropertyOutdoorFeature('Garages');
 	}
 
 	/**
@@ -167,7 +191,34 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 	 * @param string $tag
 	 */
 	public function parsePropertyType(){
-		return 'OK';
+		return $this->_getPropertyOutdoorFeature('Property Type');
+	}
+
+	/**
+	 * 取得房产的土地面积
+	 * @param string $tag
+	 */
+	public function parsePropertyLandSize(){
+		return $this->_getPropertyOutdoorFeature('Land Size');
+	}
+
+	/*
+		由于网页中 Outdoor Feature 的特殊性而采用的方法
+	*/
+	private function _getPropertyOutdoorFeature($keyword=null){
+		$features_array = $this->dom->find('.featureList ul li');
+		$result = null;
+		foreach ($features_array as $obj) {
+			$txt = trim( $obj->innertext );
+			$len = strlen($keyword);
+			if ( substr($txt, 0,$len) == $keyword) {
+				# code...
+				$txt = str_replace( $keyword.':<span>', '', $txt);
+				$result = trim(str_replace('</span>', '', $txt));
+				break;
+			}
+		}
+		return $result;
 	}
 
 	/**
@@ -175,7 +226,8 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 	 * @param string $tag
 	 */
 	public function parsePropertyStatus(){
-		return 'OK';
+		$result = $this->dom->find('.auction_details strong',0)->innertext;
+		return trim($result);
 	}
 
 	/**
@@ -183,7 +235,7 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 	 * @param string $tag
 	 */
 	public function parsePropertyOpenForInspectionSchedule(){
-		return 'OK';
+		return $result = trim($this->dom->find('#inspectionTimes p',0)->innertext);
 	}
 
 	/**
@@ -199,7 +251,13 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 	 * @return string
 	 */
 	public function parsePropertyImages(){
-		return 'OK';
+		$images_array = $this->dom->find('.thumb img');
+		$images = array();
+		foreach ($images_array as  $el) {
+			# code...
+			$images[] = $el->getAttribute('src');
+		}
+		return $images;
 	}
 	
 	/**
@@ -215,14 +273,24 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 	 * @return string
 	 */
 	public function parsePropertyAgencyName(){
-		return 'OK';
+		$agencyName = $this->dom->find('.agencyName',0)->innertext;
+		return trim($agencyName);
 	}
 
 	/**
 	 * 取得房产的中介公司销售人员名称,联系方式,头像,邮件等信息
 	 * @return string
 	 */
-	public function parsePropertyAgentDetails(){
-		return 'OK';
+	public function parsePropertyAgentName(){
+		return $agencyName = $this->dom->find('.agentName strong',0)->innertext;
+	}
+
+	/**
+	 * 取得房产的中介公司销售人员联系方式
+	 * @return string
+	 */
+	public function parsePropertyAgentPhone(){
+		$agencyPhone = $this->dom->find('.phone a',0)->innertext;
+		return $agencyPhone;
 	}
 }
