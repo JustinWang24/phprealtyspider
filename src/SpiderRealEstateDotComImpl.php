@@ -38,19 +38,19 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 			'state'=>$this->parsePropertyState(),
 			'country'=>$this->parsePropertyCountry(),
 			'postcode'=>$this->parsePropertyPostcode(),
-			'slogon'=>$this->parsePropertySlogon(),
+			'slogan'=>$this->parsePropertySlogon(),
 			'description'=>$this->parsePropertyDescription(),
 			'price_text'=>$this->parsePropertyPriceText(),
 			'bed'=>$this->parsePropertyBedroomNumber(),
 			'bath'=>$this->parsePropertyBathroomNumber(),
 			'garage'=>$this->parsePropertyGarageNumber(),
 			'type'=>$this->parsePropertyType(),
-			'landsize'=>$this->parsePropertyLandSize(),
+			'land_size'=>$this->parsePropertyLandSize(),
 			'images'=>$this->parsePropertyImages(),
 			'agency_name'=>$this->parsePropertyAgencyName(),
 			'agent_name'=>$this->parsePropertyAgentName(),
 			'agent_phone'=>$this->parsePropertyAgentPhone(),
-			'url'=>$this->propertyUrl
+			'domain_url'=>$this->propertyUrl
 		);
 		return $property;
 	}
