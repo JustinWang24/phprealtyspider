@@ -50,7 +50,8 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 			'agency_name'=>$this->parsePropertyAgencyName(),
 			'agent_name'=>$this->parsePropertyAgentName(),
 			'agent_phone'=>$this->parsePropertyAgentPhone(),
-			'domain_url'=>$this->propertyUrl
+			'realestate_url'=>$this->propertyUrl,
+			'domain_url'=>''
 		);
 		return $property;
 	}
