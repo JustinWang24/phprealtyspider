@@ -51,7 +51,10 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 			'agent_name'=>$this->parsePropertyAgentName(),
 			'agent_phone'=>$this->parsePropertyAgentPhone(),
 			'realestate_url'=>$this->propertyUrl,
-			'domain_url'=>''
+			'domain_url'=>'',
+			'inspections'=>$this->parsePropertyInspection(),
+			'agentAvatar'=>$this->parsePropertyAgentAvatar(),
+			'agentProfileLink'=>$this->parsePropertyAgentProfileLink()
 		);
 		return $property;
 	}
@@ -293,5 +296,71 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 	public function parsePropertyAgentPhone(){
 		$agencyPhone = $this->dom->find('.phone a',0)->innertext;
 		return $agencyPhone;
+	}
+
+	/**
+	 * 取得房产的中介公司销售人员头像
+	 * @return string
+	 */
+	public function parsePropertyAgentAvatar(){
+		$avatar = $this->dom->find('.agentPhoto img',0)->getAttribute('src');
+
+		return $avatar;
+	}
+
+	/**
+	 * 取得房产的中介公司销售人员简介的网址
+	 * @return string
+	 */
+	public function parsePropertyAgentProfileLink(){
+		$link = $this->dom->find('#agentInfoExpanded .agent .agentContactInfo .contactDetails .agentProfile a',0)->getAttribute('href');
+		if(strpos($link, 'www.realestate.com.au')===false){
+			$link = 'https://www.realestate.com.au'.$link;
+		}
+		return $link;
+	}
+
+	/**
+	 * 取得房产的inepection计划
+	 * @return string
+	 */
+	public function parsePropertyInspection(){
+		$list = $this->dom->find('inspectionTimes p',0)->innertext;
+		$result = array();
+		if (trim($list)=='No inspections are currently scheduled.') {
+			$result[] = 'No inspections are currently scheduled.';
+		}else{
+			//可能有具体计划了
+			$list = $this->dom->find('#inspectionTimes a');
+			foreach ($list as $key => $el) {
+				$href = $el->getAttribute('href');
+				// /oficalendar.ds?id=120761345&inspectionStartTime=1300&inspectionDate=20150919
+				$arr = explode('&amp;', $href);
+				$startTime = '';
+				$date = '';
+				if( isset($arr[1]) ){
+					$startTime = str_replace('inspectionStartTime=', '', $arr[1]);
+				}
+				if( isset($arr[2]) ){
+					$date = str_replace('inspectionDate=', '', $arr[2]);
+				}
+
+				if(strlen($date)==8 && strlen($startTime)==4){
+					$year = substr($date, 0,4);
+					$month = substr($date, 4,2);
+					$day = substr($date, 6,2);
+					$hour = substr($startTime, 0,2);
+					$minute = substr($startTime, 2,2);
+					$start = $year.'-'.$month.'-'.$day.' '.$hour.':'.$minute.':00';
+					$theEnd = strtotime($startTime)+1800;
+					$result[] = array(
+						'start_at'=>$start,
+						'end_at'=>date('Y-m-d H:i:s',$theEnd)
+					);
+				}
+			}
+		}
+		
+		return $result;
 	}
 }

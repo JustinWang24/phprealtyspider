@@ -4,9 +4,13 @@
  * 解析 Html 页面内容的工具类接口
  */
 interface PropertySpider{
-	/*
-		设置需要爬行的 url 地址
-	*/
+	
+	/**
+	 * Description
+	 * @param type $propertyUrl 
+	 * @param type $dom 
+	 * @return type
+	 */
 	public function init($propertyUrl,$dom);
 
 	/**
@@ -157,4 +161,22 @@ interface PropertySpider{
 	 * @return string
 	 */
 	public function parsePropertyAgentPhone();
+
+	/**
+	 * 取得房产的中介公司销售人员头像
+	 * @return string
+	 */
+	public function parsePropertyAgentAvatar();
+
+	/**
+	 * 取得房产的中介公司销售人员简介的网址
+	 * @return string
+	 */
+	public function parsePropertyAgentProfileLink();
+
+	/**
+	 * 取得房产的inepection计划
+	 * @return string
+	 */
+	public function parsePropertyInspection();
 }

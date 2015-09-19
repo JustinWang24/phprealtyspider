@@ -14,7 +14,7 @@ class SpiderRealEstateDotComImplTest extends PHPUnit_Framework_TestCase{
 	*/
 	protected function setUp(){
 		$this->spider = new SpiderRealEstateDotComImpl;
-		$this->url = 'http://www.realestate.com.au/property-house-vic-ferntree+gully-120340141';
+		$this->url = 'http://www.realestate.com.au/property-house-vic-croydon-120761345';
 		$this->spider->init($this->url);
 	}
 
@@ -23,6 +23,10 @@ class SpiderRealEstateDotComImplTest extends PHPUnit_Framework_TestCase{
 	*/
 	protected function tearDown(){
 		$this->spider = null;
+	}
+
+	public function testInspection(){
+		var_dump($this->spider->parsePropertyAgentAvatar());
 	}
 
 	public function testInit()

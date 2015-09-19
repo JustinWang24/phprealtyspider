@@ -15,7 +15,8 @@
         "php": ">=5.4",
         "sunra/php-simple-html-dom-parser": "^1.5",
         "erusev/parsedown": "^1.5",
-        "michelf/php-markdown": "^1.5"
+        "michelf/php-markdown": "^1.5",
+        "phpdocumentor/phpdocumentor": "^2.8"
     },
     "autoload": {
         "psr-4": {
