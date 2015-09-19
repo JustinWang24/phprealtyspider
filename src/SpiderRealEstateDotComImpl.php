@@ -109,7 +109,7 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 	 */
 	public function parsePropertyState(){
 		$state = $this->dom->find('#listing_header h1 span',2);
-		if ($startTime) {
+		if ($state) {
 			# code...
 			return trim($state->innertext);
 		}
