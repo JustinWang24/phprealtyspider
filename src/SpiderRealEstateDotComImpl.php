@@ -82,7 +82,11 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 	 * @param string $tag
 	 */
 	public function parsePropertyAddress(){
-		$address = $this->dom->find('#listing_header h1 span',0)->innertext;
+		$address = $this->dom->find('#listing_header h1 span',0);
+		if ($address) {
+			# code...
+			return trim($address->innertext);
+		}
 		return trim($address);
 	}
 	
@@ -91,7 +95,11 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 	 * @param string $tag
 	 */
 	public function parsePropertySuburb(){
-		$suburb = $this->dom->find('#listing_header h1 span',1)->innertext;
+		$suburb = $this->dom->find('#listing_header h1 span',1);
+		if ($suburb) {
+			# code...
+			return trim($suburb->innertext);
+		}
 		return trim($suburb);
 	}
 
@@ -100,7 +108,11 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 	 * @param string $tag
 	 */
 	public function parsePropertyState(){
-		$state = $this->dom->find('#listing_header h1 span',2)->innertext;
+		$state = $this->dom->find('#listing_header h1 span',2);
+		if ($startTime) {
+			# code...
+			return trim($state->innertext);
+		}
 		return strtoupper( trim($state) );
 	}
 
@@ -117,7 +129,11 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 	 * @param string $tag
 	 */
 	public function parsePropertyPostcode(){
-		$postcode = $this->dom->find('#listing_header h1 span',3)->innertext;
+		$postcode = $this->dom->find('#listing_header h1 span',3);
+		if ($postcode) {
+			# code...
+			return trim($postcode->innertext);
+		}
 		return trim($postcode);
 	}
 
@@ -126,7 +142,10 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 	 * @param string $tag
 	 */
 	public function parsePropertySlogon(){
-		$slogon = $this->dom->find('#description .title',0)->innertext;
+		$slogon = $this->dom->find('#description .title',0);
+		if($slogon){
+			return trim($slogon->innertext);
+		}
 		return $slogon;
 	}
 
@@ -162,7 +181,7 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 	 * @param string $tag
 	 */
 	public function parsePropertyPriceText(){
-		$price = $this->dom->find('.priceText',0)->innertext;
+		$price = $this->dom->find('.priceText',0);
 		if ($price) {
 			return trim($price->innertext);
 		}else{
