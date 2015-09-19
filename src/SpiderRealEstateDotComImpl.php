@@ -163,6 +163,11 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 	 */
 	public function parsePropertyPriceText(){
 		$price = $this->dom->find('.priceText',0)->innertext;
+		if ($price) {
+			return trim($price->innertext);
+		}else{
+			$price = 'Contract Agent';
+		}
 		return $price;
 	}
 
@@ -230,7 +235,10 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 	 * @param string $tag
 	 */
 	public function parsePropertyStatus(){
-		$result = $this->dom->find('.auction_details strong',0)->innertext;
+		$result = $this->dom->find('.auction_details strong',0);
+		if($result){
+			return trim($result->innertext);
+		}
 		return trim($result);
 	}
 
@@ -325,41 +333,41 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 	 * @return string
 	 */
 	public function parsePropertyInspection(){
-		$list = $this->dom->find('inspectionTimes p',0)->innertext;
+
 		$result = array();
-		if (trim($list)=='No inspections are currently scheduled.') {
-			$result[] = 'No inspections are currently scheduled.';
-		}else{
+		
 			//可能有具体计划了
 			$list = $this->dom->find('#inspectionTimes a');
-			foreach ($list as $key => $el) {
-				$href = $el->getAttribute('href');
-				// /oficalendar.ds?id=120761345&inspectionStartTime=1300&inspectionDate=20150919
-				$arr = explode('&amp;', $href);
-				$startTime = '';
-				$date = '';
-				if( isset($arr[1]) ){
-					$startTime = str_replace('inspectionStartTime=', '', $arr[1]);
-				}
-				if( isset($arr[2]) ){
-					$date = str_replace('inspectionDate=', '', $arr[2]);
-				}
+			if($list){
+				foreach ($list as $key => $el) {
+					$href = $el->getAttribute('href');
+					// /oficalendar.ds?id=120761345&inspectionStartTime=1300&inspectionDate=20150919
+					$arr = explode('&amp;', $href);
+					$startTime = '';
+					$date = '';
+					if( isset($arr[1]) ){
+						$startTime = str_replace('inspectionStartTime=', '', $arr[1]);
+					}
+					if( isset($arr[2]) ){
+						$date = str_replace('inspectionDate=', '', $arr[2]);
+					}
 
-				if(strlen($date)==8 && strlen($startTime)==4){
-					$year = substr($date, 0,4);
-					$month = substr($date, 4,2);
-					$day = substr($date, 6,2);
-					$hour = substr($startTime, 0,2);
-					$minute = substr($startTime, 2,2);
-					$start = $year.'-'.$month.'-'.$day.' '.$hour.':'.$minute.':00';
-					$theEnd = strtotime($startTime)+1800;
-					$result[] = array(
-						'start_at'=>$start,
-						'end_at'=>date('Y-m-d H:i:s',$theEnd)
-					);
+					if(strlen($date)==8 && strlen($startTime)==4){
+						$year = substr($date, 0,4);
+						$month = substr($date, 4,2);
+						$day = substr($date, 6,2);
+						$hour = substr($startTime, 0,2);
+						$minute = substr($startTime, 2,2);
+						$start = $year.'-'.$month.'-'.$day.' '.$hour.':'.$minute.':00';
+						$theEnd = strtotime($startTime)+1800;
+						$result[] = array(
+							'start_at'=>$start,
+							'end_at'=>date('Y-m-d H:i:s',$theEnd)
+						);
+					}
 				}
 			}
-		}
+		
 		
 		return $result;
 	}
