@@ -211,7 +211,12 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 	 * @param string $tag
 	 */
 	public function parsePropertyGarageNumber(){
-		return $this->_getPropertyOutdoorFeature('Garages');
+		$garages = $this->_getPropertyOutdoorFeature('Garages');
+		if(empty($garages)){
+			//try another dev
+			$garages = $this->_getPropertyOutdoorFeature('Garage Spaces');
+		}
+		return $garages;
 	}
 
 	/**
