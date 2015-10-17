@@ -14,7 +14,7 @@ class SpiderRealEstateDotComImplTest extends PHPUnit_Framework_TestCase{
 	*/
 	protected function setUp(){
 		$this->spider = new SpiderRealEstateDotComImpl;
-		$this->url = 'http://www.realestate.com.au/property-house-vic-croydon-120761345';
+		$this->url = 'http://www.realestate.com.au/property-house-vic-mitcham-120878513';
 		$this->spider->init($this->url);
 	}
 
@@ -37,6 +37,25 @@ class SpiderRealEstateDotComImplTest extends PHPUnit_Framework_TestCase{
 	    );
 	    $this->assertNotNull(
 	    	$this->spider->dom
+	    );
+	}
+
+	public function testParsePropertyAuction()
+	{
+	    $expectation = '2015-10-31 12:00:00';
+	    $this->assertEquals(
+	    	$expectation,
+	    	$this->spider->parsePropertyAuctionDate()
+	    );
+	}
+
+	public function testParsePropertyFloorplan()
+	{
+	    var_dump($this->spider->parsePropertyImages());
+	    $expectation = 'floorplan';
+	    $this->assertArrayHasKey(
+	    	$expectation,
+	    	$this->spider->parsePropertyImages()
 	    );
 	}
 

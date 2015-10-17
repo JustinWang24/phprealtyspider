@@ -179,4 +179,10 @@ interface PropertySpider{
 	 * @return string
 	 */
 	public function parsePropertyInspection();
+
+	/**
+	 * 取得房产的Auction日期
+	 * @return string
+	 */
+	public function parsePropertyAuctionDate();
 }

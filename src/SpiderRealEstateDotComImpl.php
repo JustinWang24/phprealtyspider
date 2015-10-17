@@ -54,7 +54,8 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 			'domain_url'=>'',
 			'inspections'=>$this->parsePropertyInspection(),
 			'agentAvatar'=>$this->parsePropertyAgentAvatar(),
-			'agentProfileLink'=>$this->parsePropertyAgentProfileLink()
+			'agentProfileLink'=>$this->parsePropertyAgentProfileLink(),
+			'auction'=>$this->parsePropertyAuctionDate()
 		);
 		return $property;
 	}
@@ -289,9 +290,15 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 	public function parsePropertyImages(){
 		$images_array = $this->dom->find('.thumb img');
 		$images = array();
-		foreach ($images_array as  $el) {
-			# code...
-			$images[] = $el->getAttribute('src');
+		foreach ($images_array as  $key => $el) {
+			# 通过属性检查,是否该图片是 floorplan 图
+			
+			if($el->getAttribute('data-type')=='floorplan'){
+				//Floor plan 可能有多张,因此要打上一个标记
+				$images['floorplan'.$key] = $el->getAttribute('src');
+			}else{
+				$images[] = $el->getAttribute('src');
+			}
 		}
 		return $images;
 	}
@@ -394,5 +401,33 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 		
 		
 		return $result;
+	}
+
+	/**
+	 * 取得房产的Auction日期时间,返回值为 Y-m-d H:i:s
+	 * @return string
+	 */
+	public function parsePropertyAuctionDate(){
+		$el = $this->dom->find('.auctionDetails meta',0);
+		$auctionDate = null;
+		if( $el && !empty( $el->getAttribute('content') ) ){
+			$auctionDate = $el->getAttribute('content');
+
+			# 2015-10-31T12:00:00+11:00  一个实例的值
+			$temp = explode('T', $auctionDate);
+
+			if(count($temp)==2){
+				$date = $temp[0];
+
+				$temp2 = explode('+', $temp[1]);
+
+				if (count($temp2)>0) {
+					# code...
+					$auctionDate = $date . ' ' . $temp2[0];
+				}
+			}
+		}
+
+		return $auctionDate;
 	}
 }
