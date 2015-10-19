@@ -14,7 +14,7 @@ class SpiderRealEstateDotComImplTest extends PHPUnit_Framework_TestCase{
 	*/
 	protected function setUp(){
 		$this->spider = new SpiderRealEstateDotComImpl;
-		$this->url = 'http://www.realestate.com.au/property-house-vic-mitcham-120878513';
+		$this->url = 'http://www.realestate.com.au//project-evelyn+apartments+-vic-ringwood-600007655';
 		$this->spider->init($this->url);
 	}
 

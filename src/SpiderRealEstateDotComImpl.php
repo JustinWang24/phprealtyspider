@@ -155,7 +155,14 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 	 * @param string $tag
 	 */
 	public function parsePropertyDescription(){
-		$desc = $this->dom->find('#description .body',0)->innertext;
+		$el = $this->dom->find('#description .body',0);
+		$desc = '';
+
+		if ($el && is_object($el)) {
+			# code...
+			$desc = $el->innertext;
+		}
+
 		return $desc;
 	}
 
@@ -164,7 +171,13 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 	 * @param string $tag
 	 */
 	public function parsePropertyMinPrice(){
-		$price = $this->dom->find('.priceText',0)->innertext;
+		$el = $this->dom->find('.priceText',0);
+		$price = '';
+
+		if ($el && is_object($el)) {
+			$price = $el->innertext;
+		}
+
 		return $price;
 	}
 
@@ -173,7 +186,13 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 	 * @param string $tag
 	 */
 	public function parsePropertyMaxPrice(){
-		$price = $this->dom->find('.priceText',0)->innertext;
+		$el = $this->dom->find('.priceText',0);
+		$price = '';
+
+		if ($el && is_object($el)) {
+			$price = $el->innertext;
+		}
+
 		return $price;
 	}
 
@@ -272,7 +291,12 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 	 * @param string $tag
 	 */
 	public function parsePropertyOpenForInspectionSchedule(){
-		return $result = trim($this->dom->find('#inspectionTimes p',0)->innertext);
+		$el = $this->dom->find('#inspectionTimes p',0);
+		$result = '';
+		if($el && is_object($el)){
+			$result = trim($el->innertext);
+		}
+		return $result;
 	}
 
 	/**
@@ -316,7 +340,11 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 	 * @return string
 	 */
 	public function parsePropertyAgencyName(){
-		$agencyName = $this->dom->find('.agencyName',0)->innertext;
+		$agencyName = '';
+		$el = $this->dom->find('.agencyName',0);
+		if($el && is_object($el)){
+			$agencyName = $el->innertext;
+		}
 		return trim($agencyName);
 	}
 
@@ -325,7 +353,12 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 	 * @return string
 	 */
 	public function parsePropertyAgentName(){
-		return $agencyName = $this->dom->find('.agentName strong',0)->innertext;
+		$agentName = '';
+		$el = $this->dom->find('.agentName strong',0);
+		if($el && is_object($el)){
+			$agentName = $el->innertext;
+		}
+		return $agentName;
 	}
 
 	/**
@@ -333,7 +366,11 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 	 * @return string
 	 */
 	public function parsePropertyAgentPhone(){
-		$agencyPhone = $this->dom->find('.phone a',0)->innertext;
+		$el = $this->dom->find('.phone a',0);
+		$agencyPhone = '';
+		if($el && is_object($el)){
+			$agencyPhone = $el->innertext;
+		}
 		return $agencyPhone;
 	}
 
@@ -342,8 +379,11 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 	 * @return string
 	 */
 	public function parsePropertyAgentAvatar(){
-		$avatar = $this->dom->find('.agentPhoto img',0)->getAttribute('src');
-
+		$el = $this->dom->find('.agentPhoto img',0);
+		$avatar = '';
+		if($el && is_object($el)){
+			$avatar = $el->getAttribute('src');
+		}
 		return $avatar;
 	}
 
@@ -352,8 +392,12 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 	 * @return string
 	 */
 	public function parsePropertyAgentProfileLink(){
-		$link = $this->dom->find('#agentInfoExpanded .agent .agentContactInfo .contactDetails .agentProfile a',0)->getAttribute('href');
-		if(strpos($link, 'www.realestate.com.au')===false){
+		$link = '';
+		$el= $this->dom->find('#agentInfoExpanded .agent .agentContactInfo .contactDetails .agentProfile a',0);
+		if($el && is_object($el)){
+			$link = $el->getAttribute('href');
+		}
+		if( !empty($link) && strpos($link, 'www.realestate.com.au')===false){
 			$link = 'https://www.realestate.com.au'.$link;
 		}
 		return $link;
