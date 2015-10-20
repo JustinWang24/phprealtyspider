@@ -46,4 +46,21 @@ class PropertiesLinkSpiderRealEstateImpl implements PropertiesLinkSpider{
 		}
 		return $this->propertiesLink;
 	}
+
+	public function getTotalResult(){
+		$resultInfoEl = $this->dom->find('#resultsInfo p',0);
+		$total = 0;
+		if ($resultInfoEl) {
+			# code...
+			$resultText = $resultInfoEl->innertext;
+			//Showing 1 - 20 of 387 total results
+			$temp = explode('of', $resultText);
+			if(isset($temp[1])){
+				// 387 total results
+				$final = explode(' ', trim($temp[1]) );
+				$total = isset($final[0]) ? $final[0] : 0;
+			}
+		}
+		return $total;
+	}
 }

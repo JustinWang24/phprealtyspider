@@ -14,7 +14,7 @@ class PropertiesLinkSpiderRealEstateImplTest extends PHPUnit_Framework_TestCase{
 	*/
 	protected function setUp(){
 		$this->spider = new PropertiesLinkSpiderRealEstateImpl;
-		$this->url = 'http://www.realestate.com.au/buy/in-mitcham%2c+vic+3132%3b/list-1';
+		$this->url = 'http://www.realestate.com.au/rent/in-vermont+south%2c+vic+3133%3b/list-1';
 		$this->spider->init($this->url);
 	}
 
@@ -23,6 +23,10 @@ class PropertiesLinkSpiderRealEstateImplTest extends PHPUnit_Framework_TestCase{
 	*/
 	protected function tearDown(){
 		$this->spider = null;
+	}
+
+	public function testGetTotal(){
+		var_dump($this->spider->getTotalResult());
 	}
 
 	public function testGetPaginationLinks(){

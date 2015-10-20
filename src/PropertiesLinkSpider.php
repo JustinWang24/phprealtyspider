@@ -7,4 +7,5 @@ interface PropertiesLinkSpider{
 	public function init($link,$dom);
 	public function getPaginationLinks();
 	public function getPropertyLinks();
+	public function getTotalResult();
 }	
