@@ -2,7 +2,7 @@
 use justinwang24\phprealtyspider\PropertiesLinkSpiderRealEstateImpl;
 use Sunra\PhpSimple\HtmlDomParser as HtmlDomParser;
 
-class PropertiesLinkSpiderRealEstateImplTest extends PHPUnit_Framework_TestCase{
+class PropertiesLinkSpiderRealEstateImplTest{
 	/*
 		创建基境 Fixture
 	*/

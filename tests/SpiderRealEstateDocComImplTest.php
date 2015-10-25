@@ -2,7 +2,7 @@
 use justinwang24\phprealtyspider\SpiderRealEstateDotComImpl;
 use Sunra\PhpSimple\HtmlDomParser as HtmlDomParser;
 
-class SpiderRealEstateDotComImplTest extends PHPUnit_Framework_TestCase{
+class SpiderRealEstateDotComImplTest{
 	/*
 		创建基境 Fixture
 	*/
