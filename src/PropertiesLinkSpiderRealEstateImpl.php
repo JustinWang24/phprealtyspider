@@ -48,7 +48,7 @@ class PropertiesLinkSpiderRealEstateImpl implements PropertiesLinkSpider{
 	}
 
 	public function getTotalResult(){
-		$resultInfoEl = $this->dom->find('#resultsInfo p',0);
+		$resultInfoEl = $this->dom->find('#resultsInfo span',0);
 		$total = 0;
 		if ($resultInfoEl) {
 			# code...
