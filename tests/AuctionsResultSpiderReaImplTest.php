@@ -1,8 +1,8 @@
 <?php
 use justinwang24\phprealtyspider\AuctionsResultSpiderReaImpl;
 use Sunra\PhpSimple\HtmlDomParser as HtmlDomParser;
-
-class AuctionsResultSpiderReaImplTest extends PHPUnit_Framework_TestCase{
+//extends PHPUnit_Framework_TestCase
+class AuctionsResultSpiderReaImplTest{
 	/*
 		创建基境 Fixture
 	*/

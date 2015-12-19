@@ -2,7 +2,7 @@
 use justinwang24\phprealtyspider\SpiderRealEstateDotComImpl;
 use Sunra\PhpSimple\HtmlDomParser as HtmlDomParser;
 
-class SpiderRealEstateDotComImplTest{
+class SpiderRealEstateDotComImplTest extends PHPUnit_Framework_TestCase{
 	/*
 		创建基境 Fixture
 	*/
@@ -14,7 +14,7 @@ class SpiderRealEstateDotComImplTest{
 	*/
 	protected function setUp(){
 		$this->spider = new SpiderRealEstateDotComImpl;
-		$this->url = 'http://www.realestate.com.au//project-evelyn+apartments+-vic-ringwood-600007655';
+		$this->url = 'http://www.realestate.com.au/property-house-vic-montrose-121452966';
 		$this->spider->init($this->url);
 	}
 
@@ -25,6 +25,10 @@ class SpiderRealEstateDotComImplTest{
 		$this->spider = null;
 	}
 
+	public function testAgents(){
+		$this->spider->parseListingAgents();
+	}
+/*
 	public function testInspection(){
 		var_dump($this->spider->parsePropertyAgentAvatar());
 	}
@@ -307,4 +311,5 @@ class SpiderRealEstateDotComImplTest{
 	    	$this->spider->parsePropertyAgentPhone()
 	    );
 	}
+	*/
 }

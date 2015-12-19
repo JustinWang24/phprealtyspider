@@ -185,4 +185,10 @@ interface PropertySpider{
 	 * @return string
 	 */
 	public function parsePropertyAuctionDate();
+
+	/**
+	 * 一个房产关联的中介可能多余一个,所以都要抓取
+	 * @return string
+	 */
+	public function parseListingAgents();
 }

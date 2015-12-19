@@ -55,9 +55,33 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 			'inspections'=>$this->parsePropertyInspection(),
 			'agentAvatar'=>$this->parsePropertyAgentAvatar(),
 			'agentProfileLink'=>$this->parsePropertyAgentProfileLink(),
-			'auction'=>$this->parsePropertyAuctionDate()
+			'auction'=>$this->parsePropertyAuctionDate(),
+			'agents'=>$this->parseListingAgents()
 		);
 		return $property;
+	}
+
+	/**
+	 * 一个房产关联的中介可能多余一个,所以都要抓取
+	 * @return string
+	 */
+	public function parseListingAgents(){
+		$agents = array();
+		$agentElements = $this->dom->find('#agentInfoExpanded .agent');
+		//$el= $this->dom->find('#agentInfoExpanded .agent .agentContactInfo .contactDetails .agentProfile a',0);
+
+		if($agentElements){
+			foreach ($agentElements as $index => $agent) {
+				$agents[] = array(
+					'agent_name' => $this->parsePropertyAgentName($index),
+					'agent_phone'=>$this->parsePropertyAgentPhone($index),
+					'agentAvatar'=>$this->parsePropertyAgentAvatar($index),
+					'agentProfileLink'=>$this->parsePropertyAgentProfileLink($index)
+				);
+			}
+		}
+
+		var_dump( $agents );
 	}
 
 	/**
@@ -352,9 +376,9 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 	 * 取得房产的中介公司销售人员名称,联系方式,头像,邮件等信息
 	 * @return string
 	 */
-	public function parsePropertyAgentName(){
+	public function parsePropertyAgentName($index=0){
 		$agentName = '';
-		$el = $this->dom->find('.agentName strong',0);
+		$el = $this->dom->find('.agentName strong',$index);
 		if($el && is_object($el)){
 			$agentName = $el->innertext;
 		}
@@ -365,8 +389,8 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 	 * 取得房产的中介公司销售人员联系方式
 	 * @return string
 	 */
-	public function parsePropertyAgentPhone(){
-		$el = $this->dom->find('.phone a',0);
+	public function parsePropertyAgentPhone($index=0){
+		$el = $this->dom->find('.phone a',$index);
 		$agencyPhone = '';
 		if($el && is_object($el)){
 			$agencyPhone = $el->innertext;
@@ -378,8 +402,8 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 	 * 取得房产的中介公司销售人员头像
 	 * @return string
 	 */
-	public function parsePropertyAgentAvatar(){
-		$el = $this->dom->find('.agentPhoto img',0);
+	public function parsePropertyAgentAvatar($index=0){
+		$el = $this->dom->find('.agentPhoto img',$index);
 		$avatar = '';
 		if($el && is_object($el)){
 			$avatar = $el->getAttribute('src');
@@ -391,9 +415,9 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 	 * 取得房产的中介公司销售人员简介的网址
 	 * @return string
 	 */
-	public function parsePropertyAgentProfileLink(){
+	public function parsePropertyAgentProfileLink($index=0){
 		$link = '';
-		$el= $this->dom->find('#agentInfoExpanded .agent .agentContactInfo .contactDetails .agentProfile a',0);
+		$el = $this->dom->find('#agentInfoExpanded .agent .agentContactInfo .contactDetails .agentProfile a',$index);
 		if($el && is_object($el)){
 			$link = $el->getAttribute('href');
 		}
