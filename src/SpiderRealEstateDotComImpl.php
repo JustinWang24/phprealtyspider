@@ -81,7 +81,7 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 			}
 		}
 
-		var_dump( $agents );
+		return $agents;
 	}
 
 	/**
