@@ -461,7 +461,8 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 						$theEnd = strtotime($startTime)+1800;
 						$result[] = array(
 							'start_at'=>$start,
-							'end_at'=>date('Y-m-d H:i:s',$theEnd)
+							'end_at'=>date('Y-m-d H:i:s',$theEnd),
+							'schedule_date'=>$year.'-'.$month.'-'.$day
 						);
 					}
 				}
