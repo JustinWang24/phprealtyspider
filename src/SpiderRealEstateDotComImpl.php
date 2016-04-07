@@ -56,7 +56,8 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 			'agentAvatar'=>$this->parsePropertyAgentAvatar(),
 			'agentProfileLink'=>$this->parsePropertyAgentProfileLink(),
 			'auction'=>$this->parsePropertyAuctionDate(),
-			'agents'=>$this->parseListingAgents()
+			'agents'=>$this->parseListingAgents(),
+			'sold_date'=>$this->parsePropertySoldDate()
 		);
 		return $property;
 	}
@@ -498,5 +499,21 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 		}
 
 		return $auctionDate;
+	}
+
+	/**
+	 * 如果房屋已经卖出,那么尝试抓取 sold date
+	 * 
+	 * @return string
+	 */
+	public function parsePropertySoldDate(){
+		$el = $this->dom->find('.sold_date span',0);
+		$soldDate = null;
+		if( $el && !empty( $el->innertext ) ){
+			$soldDate = $el->innertext;
+			# Sat 19-Mar-16  一个实例的值
+		}
+
+		return $soldDate;
 	}
 }

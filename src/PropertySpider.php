@@ -191,4 +191,11 @@ interface PropertySpider{
 	 * @return string
 	 */
 	public function parseListingAgents();
+
+	/**
+	 * 如果房屋已经卖出,那么尝试抓取 sold date
+	 * 
+	 * @return string
+	 */
+	public function parsePropertySoldDate();
 }
