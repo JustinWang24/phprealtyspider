@@ -198,4 +198,18 @@ interface PropertySpider{
 	 * @return string
 	 */
 	public function parsePropertySoldDate();
+
+	/**
+	 * 取得 Indoor的 features
+	 * 
+	 * @return string
+	 */
+	public function parsePropertyIndoorFeatures();
+
+	/**
+	 * 取得 Indoor的 features
+	 * 
+	 * @return string
+	 */
+	public function parsePropertyOutdoorFeatures();
 }
