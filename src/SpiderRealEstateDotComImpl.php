@@ -59,7 +59,8 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 			'agents'=>$this->parseListingAgents(),
 			'sold_date'=>$this->parsePropertySoldDate(),
 			'indoorFeatures'=>$this->parsePropertyIndoorFeatures(),
-			'outdoorFeatures'=>$this->parsePropertyOutdoorFeatures()
+			'outdoorFeatures'=>$this->parsePropertyOutdoorFeatures(),
+			'generalFeatures'=>$this->parsePropertyGeneralFeatures()
 		);
 		return $property;
 	}
@@ -262,6 +263,9 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 		if(empty($garages)){
 			//try another dev
 			$garages = $this->_getPropertyOutdoorFeature('Garage Spaces');
+			if(empty($garages)){
+				$garages = $this->_getPropertyOutdoorFeature('Carport Spaces');
+			}
 		}
 		return $garages;
 	}
@@ -537,5 +541,15 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 			# Sat 19-Mar-16  一个实例的值
 		}
 		return $outdoorFeatures;
+	}
+
+	public function parsePropertyGeneralFeatures(){
+		$el = $this->dom->find('#features .featureListWrapper .featureList ul',0);
+		$generalFeatures = '';
+		if( $el && !empty( $el->innertext ) ){
+			$generalFeatures = $el->innertext;
+			# Sat 19-Mar-16  一个实例的值
+		}
+		return $generalFeatures;
 	}
 }
