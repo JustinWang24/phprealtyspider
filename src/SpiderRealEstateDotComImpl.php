@@ -228,11 +228,11 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 	 * @param string $tag
 	 */
 	public function parsePropertyPriceText(){
-		$price = $this->dom->find('.priceText',0);
+		$price = $this->dom->find('#listing_info .priceText',0);
 		if ($price) {
 			return trim($price->innertext);
 		}else{
-			$price = 'Contract Agent';
+			$price = 'Contact Agent';
 		}
 		return $price;
 	}
