@@ -443,8 +443,10 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 
 		$result = array();
 		
-			//可能有具体计划了
+		//可能有具体计划了
 			$list = $this->dom->find('#inspectionTimes a');
+			$time_string_list = $this->dom->find('#inspectionTimes a .time');
+
 			if($list){
 				foreach ($list as $key => $el) {
 					$href = $el->getAttribute('href');
@@ -467,15 +469,31 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 						$minute = substr($startTime, 2,2);
 						$start = $year.'-'.$month.'-'.$day.' '.$hour.':'.$minute.':00';
 						$theEnd = strtotime($startTime)+1800;
+
+						$schedule_date = $year.'-'.$month.'-'.$day;
+						$end_at = date('Y-m-d H:i:s',$theEnd);
+
+						//for end time
+						if( isset($time_string_list[$key]) ){
+							$time_el = $time_string_list[$key];
+							$time_string = $time_el->innertext;
+							////11:30AM - 11:45AM
+							$time_str_array = explode('-',$time_string);
+							if(isset($time_str_array[1])){
+								$time_string = trim($time_str_array[1]);
+								$time_string = str_replace('AM',':00',$time_string);
+								$end_at = $schedule_date.' '.str_replace('PM',':00',$time_string);
+							}
+						}
+
 						$result[] = array(
 							'start_at'=>$start,
-							'end_at'=>date('Y-m-d H:i:s',$theEnd),
-							'schedule_date'=>$year.'-'.$month.'-'.$day
+							'end_at'=>$end_at,
+							'schedule_date'=>$schedule_date
 						);
 					}
 				}
 			}
-		
 		
 		return $result;
 	}
