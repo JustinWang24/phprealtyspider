@@ -219,4 +219,11 @@ interface PropertySpider{
 	 * @return string
 	 */
 	public function parsePropertyGeneralFeatures();
+
+	/**
+	 * 取得 General features
+	 * 
+	 * @return string
+	 */
+	public function parsePropertyIsUnderContract();
 }

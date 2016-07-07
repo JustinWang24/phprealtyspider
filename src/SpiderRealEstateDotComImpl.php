@@ -60,6 +60,7 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 			'sold_date'=>$this->parsePropertySoldDate(),
 			'indoorFeatures'=>$this->parsePropertyIndoorFeatures(),
 			'outdoorFeatures'=>$this->parsePropertyOutdoorFeatures(),
+			'isUnderContract'=>$this->parsePropertyIsUnderContract(),
 			'generalFeatures'=>$this->parsePropertyGeneralFeatures()
 		);
 		return $property;
@@ -502,6 +503,24 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 					$auctionDate = $date . ' ' . $temp2[0];
 				}
 			}
+		}
+
+		return $auctionDate;
+	}
+
+	/**
+	 * 取得房产的是否 under contract
+	 * 
+	 * @return string
+	 */
+	public function parsePropertyIsUnderContract(){
+		$el = $this->dom->find('.auctionDetails',0);
+		$auctionDate = null;
+		if( $el && !empty( $el->innertext ) ){
+			$auctionDate = $el->innertext;
+
+			# 2015-10-31T12:00:00+11:00  一个实例的值
+			
 		}
 
 		return $auctionDate;
