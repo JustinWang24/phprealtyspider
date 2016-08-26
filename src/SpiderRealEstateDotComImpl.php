@@ -60,7 +60,7 @@ class SpiderRealEstateDotComImpl implements PropertySpider{
 			'sold_date'=>$this->parsePropertySoldDate(),
 			'indoorFeatures'=>$this->parsePropertyIndoorFeatures(),
 			'outdoorFeatures'=>$this->parsePropertyOutdoorFeatures(),
-			'isUnderContract'=>$this->parsePropertyIsUnderContract(),
+			'isUnderContract'=>$this->parsePropertyStatus(),
 			'generalFeatures'=>$this->parsePropertyGeneralFeatures()
 		);
 		return $property;
