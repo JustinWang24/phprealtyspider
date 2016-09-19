@@ -52,6 +52,10 @@ class PropertiesLinkSpiderRealEstateReactImpl implements PropertiesLinkSpider{
         return $this->pagination;
     }
 
+    /**
+     * 返回所有该类型房产的链接的数组。 数组元素的 key 是REA的物业ID, value 是物业的URL
+     * @return array
+     */
     public function getPropertyLinks(){
         $pagination = $this->getPaginationLinks();
         $this->propertiesLink = [];
@@ -61,7 +65,7 @@ class PropertiesLinkSpiderRealEstateReactImpl implements PropertiesLinkSpider{
                 $returnObject = json_decode( $this->curlService->response );
                 if(isset($returnObject->results) && count($returnObject->results)){
                     foreach ($returnObject->results as $p) {
-                        $this->propertiesLink[] = $p->prettyUrl;
+                        $this->propertiesLink[$p->listingId] = $p->prettyUrl;
                     }
                 }
             }
